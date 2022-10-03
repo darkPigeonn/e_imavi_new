@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "859691038944",
+    "project_id": "imavistatic",
+    "storage_bucket": "imavistatic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859691038944:android:0b270b86882d4d2b5f7885",
+        "android_client_info": {
+          "package_name": "com.eimavi.imavi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859691038944-ljv736t06c0bs8tnjeutmrhjc57uc6q4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDZTvgvmiyoUZEtCLhC_-VF0RzJJtTmVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "859691038944-ljv736t06c0bs8tnjeutmrhjc57uc6q4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
