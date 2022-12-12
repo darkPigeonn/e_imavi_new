@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:e_imavi/components/const_color.dart';
 import 'package:e_imavi/model/model_schedule.dart';
 import 'package:e_imavi/model/user.dart';
+import 'package:e_imavi/pages/attendance/wfh.dart';
 import 'package:e_imavi/pages/kronik/listKronik.dart';
 import 'package:e_imavi/pages/permits/ijin.dart';
 import 'package:e_imavi/pages/listResources.dart';
@@ -126,7 +127,6 @@ class _HomePageState extends State<HomePage> {
     }
 
     final profileToken = prefs.get('profileToken');
-    print(profileToken);
     final loginChek = prefs.get('login');
     Map<String, String> headers = {
       'Id': '6147f10d33abc530a445fe84',
@@ -187,11 +187,6 @@ class _HomePageState extends State<HomePage> {
     bool flagQr = true;
     if (type == 'in') {
       final cekQr = await scanQR();
-      // if(dt.hour > 6 && dt.hour <= 16){
-      // } else {
-      //   EasyLoading.showError('Anda input kehadiran diluar jam masuk');
-      //   return;
-      // }
     } else if (type == 'out') {
       flagQr = true;
     }
@@ -207,8 +202,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     if (flagQr == true) {
-
-        final DateTime checkInDateTime = DateTime.now();
+      final DateTime checkInDateTime = DateTime.now();
       final dataCheckIn = {
         'userId': userId,
         'type': type,
@@ -237,9 +231,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // getSchedule() async {
-  //   schedule = await ScheduleController().getScheduleToday();
-  // }
   Future<Position> getDistance(partner) async {
     bool serviceEnabled;
     bool distance = false;
@@ -266,33 +257,7 @@ class _HomePageState extends State<HomePage> {
 
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    // double maksimalDistance = 80.0;
 
-    // double currentLatitude = position.latitude;
-    // double currentLongitude = position.longitude;
-
-    // double officeLatitude = -7.26991;
-    // double officeLongtitude = 112.81251;
-
-    // if (partner == 'garum') {
-    //   officeLatitude = -8.073732;
-    //   officeLongtitude = 112.226548;
-    // }
-    // try {
-    //   List<Placemark> placemarks =
-    //       await placemarkFromCoordinates(officeLatitude, officeLongtitude);
-    //   Placemark place = placemarks[0];
-
-    //   double jarak = Geolocator.distanceBetween(
-    //       currentLatitude, currentLongitude, officeLatitude, officeLongtitude);
-    //   print(jarak);
-
-    //   if (jarak <= maksimalDistance) {
-    //     distance = true;
-    //   }
-    // } catch (e) {
-    //   print(e);
-    // }
     return position;
   }
 
@@ -513,7 +478,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(
@@ -555,34 +521,43 @@ class _HomePageState extends State<HomePage> {
                                               Color.fromARGB(255, 99, 0, 157)),
                                     child: Text(
                                       'Pulang',
-                                    ),
-
+                                      ),
                                   ),
-                                ],
-                              ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                child: Center(
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
                                           primary:
                                               Color.fromARGB(255, 99, 0, 157),
-                                          fixedSize: Size(100, 40)),
-                                      onPressed: () async {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    IjinPage()));
-                                        // final snackBar = SnackBar(
-                                        //   content: const Text('Comming Soon'),
-                                        // );
-                                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                      },
-                                      child: Text('Ijin')),
+                                        ),
+                                        onPressed: () async {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      IjinPage()));
+                                        },
+                                        child: Text('Ijin')),
+                                  ],
                                 ),
                               ),
+                              Container(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Wfh(userId: userId),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Color.fromARGB(255, 99, 0, 157)),
+                                  child: Text(
+                                    'Presensi Luar Kantor',
+                                  ),
+                                ),
+                              ),
+
 
                             ],
                           ),

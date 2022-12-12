@@ -21,7 +21,7 @@ class ApiService {
       "Authorization": "bearer $profileToken"
     };
     final response = await http.get(
-      Uri.parse('https://api.imavi.org/imavi/users/attendanceHistory'),
+      Uri.parse(url + 'users/attendanceHistory'),
       headers: headers,
     );
 

@@ -30,6 +30,18 @@ class _LoginPageState extends State<LoginPage> {
 
   static FirebaseFirestore _db = FirebaseFirestore.instance;
   //function
+  Future<void> setupToken() async {
+    // Get the token each time the application loads
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("token");
+    print(token);
+
+    // // Save the initial token to the database
+    // await saveTokenToDatabase(token!);
+
+    // // Any time the token refreshes, store this in the database too.
+    // FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
+  }
   loginUser() async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -40,7 +52,12 @@ class _LoginPageState extends State<LoginPage> {
     String username = _email.text;
     String password = _password.text;
 
-    Map data = {"username": username, "password": password};
+
+
+    //get token fcm firebase
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    Map data = {"username": username, "password": password, "token_fcm": token};
     //note : meski sudah bentuk objek, harus di encode dulu agar masuk ke body
     final body = jsonEncode(data);
 
