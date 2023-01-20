@@ -5,7 +5,7 @@
    <application
         android:label="e_imavi"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logoimavi">>
         <activity
             android:name=".MainActivity"
             android:exported="true"

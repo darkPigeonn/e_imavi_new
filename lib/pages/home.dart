@@ -112,6 +112,8 @@ class _HomePageState extends State<HomePage> {
   getDataSchedule() async {
 
     Schedule data = await ScheduleController().getScheduleToday();
+    print("data");
+    print(data);
     setState(() {
       schedule = data;
       isLoadingSchedule = false;

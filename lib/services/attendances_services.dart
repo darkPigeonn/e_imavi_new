@@ -20,6 +20,7 @@ class ApiService {
       'Secret': '88022467-0b5c-4e61-8933-000cd884aaa8',
       "Authorization": "bearer $profileToken"
     };
+    print(url);
     final response = await http.get(
       Uri.parse(url + 'users/attendanceHistory'),
       headers: headers,

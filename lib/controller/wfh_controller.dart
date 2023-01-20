@@ -7,11 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../utils/env.dart';
 
-wfhAttendance(data, userId) async {
+Future<dynamic> wfhAttendance(data, userId, context) async {
   EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  print(data);
-
+  var dataReturn = false;
   try {
     await uploadImages(data['image'], userId).then((value) async {
       var imageUrl = value;
@@ -35,14 +34,18 @@ wfhAttendance(data, userId) async {
       final response = await http.post(Uri.parse(url + 'users/attendance'),
           headers: headers, body: body);
       final responseBody = jsonDecode(response.body);
-      print(responseBody);
+
       if (response.statusCode == 200) {
         EasyLoading.showSuccess(responseBody['message']);
+        dataReturn = true;
       } else {
         EasyLoading.showError(responseBody['message']);
       }
+
     });
   } catch (error) {
+
     return ("Gagal upload, terjadi gangguan jaringan");
   }
+  return dataReturn;
 }

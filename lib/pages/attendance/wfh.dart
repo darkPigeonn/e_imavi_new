@@ -120,6 +120,8 @@ class _WfhState extends State<Wfh> {
     startJam();
   }
 
+  acctionButton() {}
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -242,8 +244,17 @@ class _WfhState extends State<Wfh> {
                           'note': _catatan.text,
                           'image': _image,
                           'type': 'in',
+                          'isWfh': true
                         };
-                        wfhAttendance(dataSave, widget.userId);
+
+                        wfhAttendance(dataSave, widget.userId, context)
+                            .then((value) {
+                          if (value) {
+                            Navigator.pop(context);
+                          }
+                        });
+
+
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromARGB(255, 99, 0, 157)),
@@ -255,8 +266,14 @@ class _WfhState extends State<Wfh> {
                           'note': _catatan.text,
                           'image': _image,
                           'type': 'out',
+                          'isWfh': true
                         };
-                        wfhAttendance(dataSave, widget.userId);
+                        wfhAttendance(dataSave, widget.userId, context)
+                            .then((value) {
+                          if (value) {
+                            Navigator.pop(context);
+                          }
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromARGB(255, 99, 0, 157)),

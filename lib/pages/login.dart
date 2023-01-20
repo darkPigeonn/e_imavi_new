@@ -28,14 +28,19 @@ class _LoginPageState extends State<LoginPage> {
 
   bool isLoading = false;
 
+  bool _passwordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordVisible = false;
+  }
+
   static FirebaseFirestore _db = FirebaseFirestore.instance;
   //function
   Future<void> setupToken() async {
     // Get the token each time the application loads
     String? token = await FirebaseMessaging.instance.getToken();
-    print("token");
-    print(token);
-
     // // Save the initial token to the database
     // await saveTokenToDatabase(token!);
 
@@ -45,13 +50,8 @@ class _LoginPageState extends State<LoginPage> {
   loginUser() async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // if (_formKey.currentState!.validate()) {
-    //   Map data = {'username': _email.text, 'password': _password.text};
-    //   await ref.read(authProvider.notifier).login(_email.text, _password.text);
-    // }
     String username = _email.text;
     String password = _password.text;
-
 
 
     //get token fcm firebase
@@ -93,6 +93,8 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
 
+
+
   }
 
   @override
@@ -122,13 +124,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Center(
                           child: Text(
-                            "IMAVI MOBILE",
+                            "E-IMAVI",
                             style: mStyleTitle,
                           ),
                         ),
                         Center(
                           child: Text(
-                            "Aplikasi untuk karyawan IMAVI",
+                            "Aplikasi untuk aktifitas karyawan",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -166,17 +168,36 @@ class _LoginPageState extends State<LoginPage> {
                             return null;
                           },
                           controller: _password,
-                          obscureText: true,
-                          decoration: const InputDecoration(
+                          obscureText: !_passwordVisible,
+                          decoration: InputDecoration(
                               labelText: 'Masukan Password',
                               border: OutlineInputBorder(),
+
                               errorBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Colors.red, width: 5))),
+                                  BorderSide(color: Colors.red, width: 5),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                // Based on passwordVisible state choose the icon
+                                _passwordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Theme.of(context).primaryColorDark,
+                              ),
+                              onPressed: () {
+                                // Update the state i.e. toogle the state of passwordVisible variable
+                                setState(() {
+                                  _passwordVisible = !_passwordVisible;
+                                });
+                              },
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10),
                         ),
+
                         ElevatedButton(
                           onPressed: () {
                             loginUser();
