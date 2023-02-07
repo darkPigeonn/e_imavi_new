@@ -83,13 +83,13 @@ class ProfileWidget extends StatelessWidget {
             child: Material(
 
               color: Colors.transparent,
-              child: Ink.image(
-                image: image,
-                fit: BoxFit.cover,
-                width: 80,
-                height: 80,
-                child: InkWell(onTap: onClicked),
-              ),
+                // child: Ink.image(
+                //   image: image,
+                //   fit: BoxFit.cover,
+                //   width: 80,
+                //   height: 80,
+                //   child: InkWell(onTap: onClicked),
+                // ),
             ),
           );
         }

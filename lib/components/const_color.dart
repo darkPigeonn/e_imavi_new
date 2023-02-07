@@ -21,6 +21,8 @@ const mColorNotifRes = Color(0xFFC38D01);
 const mColorNotifResLigth = Color(0xFFF4B208);
 
 const mColorBadge = Color(0xFF20981E);
+const mColorPurple = Color.fromARGB(255, 131, 17, 176);
+const mColorPurple2 = Color.fromARGB(255, 69, 2, 95);
 
 const mStyleTitle = TextStyle(
   fontSize: 24,

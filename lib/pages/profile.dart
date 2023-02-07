@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:e_imavi/model/user.dart';
 import 'package:e_imavi/pages/edit_profile.dart';
+import 'package:e_imavi/pages/user/user.dart';
 import 'package:e_imavi/provider/data_provider.dart';
 import 'package:e_imavi/services/firestore_api.dart';
 import 'package:e_imavi/widgets/bottomnavigation.dart';
@@ -38,17 +39,24 @@ class ProfilUserPage extends ConsumerWidget {
                    buildName(_data),
                     ProfileWidget(
                       onClicked: () async {
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                          final image = await ImagePicker()
-                              .getImage(source: ImageSource.gallery);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserPage()));
+                          // SharedPreferences prefs =
+                          //     await SharedPreferences.getInstance();
+                          // final image = await ImagePicker()
+                          //     .getImage(source: ImageSource.gallery);
 
-                          if (image == null) return;
+                          // if (image == null) return;
 
-                          final directory = await getApplicationDocumentsDirectory();
-                          final name = basename(image.path);
-                          final imageFile = File('${directory.path}/$name');
-                          final newImage = await File(image.path).copy(imageFile.path);
-                          await storage.uploadImage(image.path, imagePath);
+                          // final directory =
+                          //     await getApplicationDocumentsDirectory();
+                          // final name = basename(image.path);
+                          // final imageFile = File('${directory.path}/$name');
+                          // final newImage =
+                          //     await File(image.path).copy(imageFile.path);
+                          // await storage.uploadImage(image.path, imagePath);
 
                           // setState(() => user = user.copy(imagePath: newImage.path));
                       },

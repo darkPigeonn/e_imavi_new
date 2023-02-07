@@ -82,10 +82,14 @@ class _LoginPageState extends State<LoginPage> {
         textColor: Colors.white,
       );
 
+                            EasyLoading.dismiss();
+
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => BaseLayout()));
     } else {
       var data = jsonDecode(response.body);
+
+                            EasyLoading.dismiss();
       Fluttertoast.showToast(
         msg: data['message'],
         backgroundColor: Colors.red,
@@ -199,8 +203,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
 
                         ElevatedButton(
-                          onPressed: () {
-                            loginUser();
+                          onPressed: () async {
+                            EasyLoading.show();
+                            await loginUser();
+
                           },
                           child: Text('Masuk'),
                         )

@@ -2,13 +2,18 @@ class ModelAttendances {
   late String date, checkIn, checkOut, flag;
 
   ModelAttendances(
-      {required this.date, required this.checkIn, required this.checkOut});
+      {required this.date,
+      required this.checkIn,
+      required this.checkOut,
+      required this.flag});
 
   factory ModelAttendances.fromJson(Map<String, dynamic> json) {
+
     return new ModelAttendances(
         date: json['date'],
         checkIn: json['checkIn'],
-        checkOut: json['checkOut']);
+        checkOut: json['checkOut'],
+        flag: json['status']);
   }
 }
 class ModelResources1 {

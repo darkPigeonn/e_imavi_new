@@ -25,6 +25,7 @@ class ApiService {
       Uri.parse(url + 'users/attendanceHistory'),
       headers: headers,
     );
+    print(response.body);
 
     if (response.statusCode == 200) {
       final List result = jsonDecode(response.body);
@@ -48,6 +49,7 @@ class ApiService {
       Uri.parse(url + 'users/profile'),
       headers: headers,
     );
+    print(response.body);
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
       prefs.setString('idProfileUser', result['_id']);

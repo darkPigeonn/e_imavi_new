@@ -69,7 +69,7 @@ class HistoryAttendances extends ConsumerWidget {
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 2,
+                                  flex: 1,
                                     child: Text(
                                       "Jam Masuk",
                                     ),
@@ -80,6 +80,12 @@ class HistoryAttendances extends ConsumerWidget {
                                       "Jam Keluar",
                                     ),
                                   ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    "Status",
+                                  ),
+                                ),
                                 ],
                               ),
                             ),
@@ -103,7 +109,7 @@ class HistoryAttendances extends ConsumerWidget {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 2,
+                                    flex: 1,
                                       child: Text(
                                         utcToLocal(e.checkIn),
                                       ),
@@ -114,6 +120,12 @@ class HistoryAttendances extends ConsumerWidget {
                                         utcToLocal(e.checkOut),
                                       ),
                                     ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      e.flag,
+                                    ),
+                                  ),
                                   ],
                                 ),
                               ),

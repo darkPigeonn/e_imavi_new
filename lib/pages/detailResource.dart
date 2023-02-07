@@ -1,6 +1,6 @@
 import 'package:e_imavi/model/model_attendances.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:share/share.dart';
@@ -137,13 +137,13 @@ class _DetailResourceState extends State<DetailResource> {
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Html(
-                data: data.content,
-                style: {
-                  "body": Style(
-                      fontSize: FontSize(16.0), textAlign: TextAlign.justify)
-                },
-              ),
+              // child: Html(
+              //   data: data.content,
+              //   style: {
+              //     "body": Style(
+              //         fontSize: FontSize(16.0), textAlign: TextAlign.justify)
+              //   },
+              // ),
             )
           ],
         )),
