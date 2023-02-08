@@ -53,9 +53,13 @@ class _LoginPageState extends State<LoginPage> {
     String username = _email.text;
     String password = _password.text;
 
-
+    String? token = '';
     //get token fcm firebase
-    String? token = await FirebaseMessaging.instance.getToken();
+    try {
+      token = await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      print(e);
+    }
 
     Map data = {"username": username, "password": password, "token_fcm": token};
     //note : meski sudah bentuk objek, harus di encode dulu agar masuk ke body

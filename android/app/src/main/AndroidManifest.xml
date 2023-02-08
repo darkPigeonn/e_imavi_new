@@ -2,6 +2,7 @@
     package="com.eimavi.imavi">
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.GET_ACCOUNTS" />
    <application
         android:label="e_imavi"
         android:name="${applicationName}"
@@ -38,5 +39,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDiFvuhWWNGn99d3VtIZlZxZaozMIpiTDA" />
+                 <!-- A custom Android Notification Channel to deliver FCM notifications on a non-default channel -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel" />
+            <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
     </application>
 </manifest>
