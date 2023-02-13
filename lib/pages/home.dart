@@ -25,6 +25,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -179,6 +180,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   attendance(type) async {
+    await Permission.camera.request();
+
     EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
 
     final distance = await getDistance(partner);
