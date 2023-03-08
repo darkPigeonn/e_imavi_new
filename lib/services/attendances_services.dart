@@ -15,6 +15,7 @@ class ApiService {
 
     final profileToken = prefs.get('profileToken');
 
+
     Map<String, String> headers = {
       'Id': '6147f10d33abc530a445fe84',
       'Secret': '88022467-0b5c-4e61-8933-000cd884aaa8',
@@ -36,8 +37,8 @@ class ApiService {
   }
   Future<ModelUser> getProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     final profileToken = prefs.get('profileToken');
+
 
      Map<String, String> headers = {
       'Id': '6147f10d33abc530a445fe84',
@@ -49,7 +50,6 @@ class ApiService {
       Uri.parse(url + 'users/profile'),
       headers: headers,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
       prefs.setString('idProfileUser', result['_id']);

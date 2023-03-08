@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+
 import 'package:e_imavi/components/const_color.dart';
 import 'package:e_imavi/model/model_schedule.dart';
 import 'package:e_imavi/model/user.dart';
@@ -20,6 +21,7 @@ import 'package:e_imavi/widgets/background.dart';
 import 'package:e_imavi/widgets/bottomnavigation.dart';
 import 'package:e_imavi/widgets/menuItem.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +30,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -111,10 +114,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getDataSchedule() async {
-
     Schedule data = await ScheduleController().getScheduleToday();
-    print("data");
-    print(data);
     setState(() {
       schedule = data;
       isLoadingSchedule = false;
@@ -122,12 +122,8 @@ class _HomePageState extends State<HomePage> {
   }
   getDataUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     // notif
     final notifAlert = prefs.get('notifStatus');
-    if (notifAlert == true) {
-      print('object ki');
-    }
 
     final profileToken = prefs.get('profileToken');
     final loginChek = prefs.get('login');
@@ -143,17 +139,18 @@ class _HomePageState extends State<HomePage> {
 
     if (response.statusCode == 200) {
       final userData = jsonDecode(response.body);
+      print(userData);
       setState(() {
         // user.copy(imagePath: '', name: userData['fullName'], email: userData['email'], about: '');
-        user.copy(
-            imagePath: '',
-            name: userData['fullName'],
-            email: userData['email'],
-            about: '',
-            isDarkMode: false);
+        // user.copy(
+        //     imagePath: '',
+        //     name: userData['fullName'],
+        //     email: userData['email'],
+        //     about: '',
+        //     isDarkMode: false);
 
         if (loginChek == true) {
-          UserPreferences.setUser(user);
+          // UserPreferences.setUser(user);
           prefs.setBool('login', false);
         }
         nama = userData['fullName'];
@@ -185,6 +182,7 @@ class _HomePageState extends State<HomePage> {
     EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
 
     final distance = await getDistance(partner);
+    print(distance);
     var dt = DateTime.now();
 
 
@@ -196,15 +194,16 @@ class _HomePageState extends State<HomePage> {
       flagQr = true;
     }
 
-    if ( flagQr == false) {
-      // ngecek hasil barcode
-      if (_scanBarcode ==
-          'Institutum Theologicum Ioannis Mariae Vianney Surabayanum') {
-        flagQr = true;
-      } else {
-          EasyLoading.showError('Anda belum scan QR');
-      }
-    }
+    // if ( flagQr == false) {
+    //   // ngecek hasil barcode
+    //   if (_scanBarcode ==
+    //       'Institutum Theologicum Ioannis Mariae Vianney Surabayanum') {
+    //     flagQr = true;
+    //   } else {
+    //       EasyLoading.showError('Anda belum scan QR');
+    //   }
+    // }
+    flagQr = true;
 
     if (flagQr == true) {
       final DateTime checkInDateTime = DateTime.now();
@@ -269,13 +268,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    user = UserPreferences.getUser();
     getDataUser();
+    // user = UserPreferences.getUser();
     getNotificationStatus();
     getDataSchedule();
     _requestPermissions();
     _configureDidReceiveLocalNotificationSubject();
     _configureSelectNotificationSubject();
+
   }
 
   void _requestPermissions() {
@@ -397,6 +397,20 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
+
+    // use flutter scanner sdk
+    // if (kIsWeb) {
+    //   late MobileScannerController controller = MobileScannerController();
+    //   Barcode? barcode;
+    //   BarcodeCapture? capture;
+
+    //   final scanWindow = Rect.fromCenter(
+    //     center: MediaQuery.of(context).size.center(Offset.zero),
+    //     width: 200,
+    //     height: 200,
+    //   );
+
+    // }
   }
 
   @override
@@ -468,9 +482,9 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    ProfilUserPage(
-                      imagePath: userId,
-                    ),
+                      ProfilUserPage(
+                        imagePath: userId,
+                      ),
                     SizedBox(height: 10,),
                     Container(
                       padding: EdgeInsets.only(top: 10, bottom: 10),

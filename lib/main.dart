@@ -27,7 +27,13 @@ void main() async {
   initNotification();
 
   //end
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyDCdkNoArtxUolzKtoWgFemVxZZ11aAX8A",
+          appId: "1:859691038944:web:3bd1318f040dab7a5f7885",
+          messagingSenderId: "859691038944",
+          storageBucket: "imavistatic.appspot.com",
+          projectId: "imavistatic"));
   LocalNotificationService.initialize();
 
   await UserPreferences.init();

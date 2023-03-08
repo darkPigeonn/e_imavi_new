@@ -29,6 +29,7 @@ class ProfilUserPage extends ConsumerWidget {
       margin: EdgeInsets.all(10),
       child: _data.when(
         data: (_data){
+
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

@@ -55,5 +55,29 @@
       });
     });
   </script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDCdkNoArtxUolzKtoWgFemVxZZ11aAX8A",
+  authDomain: "imavistatic.firebaseapp.com",
+  projectId: "imavistatic",
+  storageBucket: "imavistatic.appspot.com",
+  messagingSenderId: "859691038944",
+  appId: "1:859691038944:web:3bd1318f040dab7a5f7885",
+  measurementId: "G-Y2WXQ2SWLH"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>
