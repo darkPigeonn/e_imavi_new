@@ -182,7 +182,6 @@ class _HomePageState extends State<HomePage> {
     EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
 
     final distance = await getDistance(partner);
-    print(distance);
     var dt = DateTime.now();
 
 
@@ -194,15 +193,15 @@ class _HomePageState extends State<HomePage> {
       flagQr = true;
     }
 
-    // if ( flagQr == false) {
-    //   // ngecek hasil barcode
-    //   if (_scanBarcode ==
-    //       'Institutum Theologicum Ioannis Mariae Vianney Surabayanum') {
-    //     flagQr = true;
-    //   } else {
-    //       EasyLoading.showError('Anda belum scan QR');
-    //   }
-    // }
+    if (flagQr == false) {
+      // ngecek hasil barcode
+      if (_scanBarcode ==
+          'Institutum Theologicum Ioannis Mariae Vianney Surabayanum') {
+        flagQr = true;
+      } else {
+        EasyLoading.showError('Anda belum scan QR');
+      }
+    }
     flagQr = true;
 
     if (flagQr == true) {
