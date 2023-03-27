@@ -139,6 +139,8 @@ class _HomePageState extends State<HomePage> {
       headers: headers,
     );
 
+    print(response);
+
     if (response.statusCode == 200) {
       final userData = jsonDecode(response.body);
       print(userData);
@@ -182,11 +184,8 @@ class _HomePageState extends State<HomePage> {
 
     EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
 
-    // final distance = await getDistance(partner);
-    final distance = 12;
-    var dt = DateTime.now();
+    final distance = await getDistance(partner);
 
-    // //flag qr
     bool flagQr = false;
 
     if (type == 'in') {
@@ -200,15 +199,6 @@ class _HomePageState extends State<HomePage> {
       flagQr = true;
     }
 
-    // if (flagQr == false) {
-    //   // ngecek hasil barcode
-    //   if (_scanBarcode ==
-    //       'Institutum Theologicum Ioannis Mariae Vianney Surabayanum') {
-    //     flagQr = true;
-    //   } else {
-    //     EasyLoading.showError('Anda belum scan QR');
-    //   }
-    // }
     flagQr = true;
 
     if (flagQr == true) {
@@ -216,14 +206,12 @@ class _HomePageState extends State<HomePage> {
       final dataCheckIn = {
         'userId': userId,
         'type': type,
-        'location': distance
+        'location': distance,
       };
       if (type == 'in') {
         dataCheckIn['scanBarcode'] = _scanBarcode;
       }
-
       final body = jsonEncode(dataCheckIn);
-      print(body);
       Map<String, String> headers = {
         'Id': '6147f10d33abc530a445fe84',
         'Secret': '88022467-0b5c-4e61-8933-000cd884aaa8',
