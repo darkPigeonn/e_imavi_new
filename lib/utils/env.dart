@@ -1,5 +1,5 @@
-// const url = 'http://10.0.2.2:3005/imavi/';
-const url = 'https://api.imavi.org/imavi/';
+const url = 'http://10.0.2.2:3005/imavi/';
+// const url = 'https://api.imavi.org/imavi/';
 
 List subjectKronik = [
   {'code': '0', 'label': 'Kronik Kantor'},

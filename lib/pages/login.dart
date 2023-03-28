@@ -47,62 +47,76 @@ class _LoginPageState extends State<LoginPage> {
     // // Any time the token refreshes, store this in the database too.
     // FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
   }
-  loginUser() async {
 
+  loginUser() async {
+    print('masuk sini');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String username = _email.text;
     String password = _password.text;
 
-    String? token = '';
-    //get token fcm firebase
-    try {
-      token = await FirebaseMessaging.instance.getToken();
-    } catch (e) {
-      print(e);
-    }
-
-    Map data = {"username": username, "password": password, "token_fcm": token};
-    //note : meski sudah bentuk objek, harus di encode dulu agar masuk ke body
-    final body = jsonEncode(data);
-
-    Map<String, String> headers = {
-      'Id': '6147f10d33abc530a445fe84',
-      'Secret': '88022467-0b5c-4e61-8933-000cd884aaa8',
-      "Content-type": "application/json"
-    };
-
-    final response = await http.post(
-        Uri.parse(url + 'users/login'),
-        headers: headers,
-        body: body);
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      prefs.setString("profileToken", data['profileToken']);
-      prefs.setBool("login", true);
-
+    if (_email.text == '' || _password.text == '') {
+      EasyLoading.dismiss();
       Fluttertoast.showToast(
-        msg: 'Berhasil Logim',
-        backgroundColor: Color.fromARGB(255, 2, 115, 0),
-        textColor: Colors.white,
-      );
-
-                            EasyLoading.dismiss();
-
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => BaseLayout()));
-    } else {
-      var data = jsonDecode(response.body);
-
-                            EasyLoading.dismiss();
-      Fluttertoast.showToast(
-        msg: data['message'],
+        msg: 'Email dan Passowrd tidak boleh kosong',
         backgroundColor: Colors.red,
         textColor: Colors.white,
       );
+    } else {
+      String? token = '';
+      //get token fcm firebase
+      try {
+        token = await FirebaseMessaging.instance.getToken();
+      } catch (e) {
+        print(e);
+      }
+
+      Map data = {
+        "username": username,
+        "password": password,
+        "token_fcm": token
+      };
+
+      //note : meski sudah bentuk objek, harus di encode dulu agar masuk ke body
+      final body = jsonEncode(data);
+
+      Map<String, String> headers = {
+        'Id': '6147f10d33abc530a445fe84',
+        'Secret': '88022467-0b5c-4e61-8933-000cd884aaa8',
+        "Content-type": "application/json"
+      };
+
+      print("response");
+      print(url);
+
+      final response = await http.post(Uri.parse(url + 'users/login'),
+          headers: headers, body: body);
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        prefs.setString("profileToken", data['profileToken']);
+        prefs.setBool("login", true);
+
+        Fluttertoast.showToast(
+          msg: 'Berhasil Logim',
+          backgroundColor: Color.fromARGB(255, 2, 115, 0),
+          textColor: Colors.white,
+        );
+
+        EasyLoading.dismiss();
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => BaseLayout()));
+      } else {
+        var data = jsonDecode(response.body);
+
+        EasyLoading.dismiss();
+        Fluttertoast.showToast(
+          msg: data['message'],
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      }
     }
-
-
-
   }
 
   @override
@@ -178,11 +192,10 @@ class _LoginPageState extends State<LoginPage> {
                           controller: _password,
                           obscureText: !_passwordVisible,
                           decoration: InputDecoration(
-                              labelText: 'Masukan Password',
-                              border: OutlineInputBorder(),
-
-                              errorBorder: OutlineInputBorder(
-                                  borderSide:
+                            labelText: 'Masukan Password',
+                            border: OutlineInputBorder(),
+                            errorBorder: OutlineInputBorder(
+                              borderSide:
                                   BorderSide(color: Colors.red, width: 5),
                             ),
                             suffixIcon: IconButton(
@@ -205,12 +218,10 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: EdgeInsets.only(top: 10),
                         ),
-
                         ElevatedButton(
                           onPressed: () async {
                             EasyLoading.show();
                             await loginUser();
-
                           },
                           child: Text('Masuk'),
                         )

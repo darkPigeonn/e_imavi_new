@@ -38,8 +38,6 @@ class _WfhState extends State<Wfh> {
     if (image == null) return;
     final imageTemporay = File(image.path);
 
-    print("imageTemporay");
-    print(imageTemporay);
     setState(() {
       this._image = imageTemporay;
     });
@@ -253,8 +251,6 @@ class _WfhState extends State<Wfh> {
                             Navigator.pop(context);
                           }
                         });
-
-
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromARGB(255, 99, 0, 157)),
@@ -268,6 +264,7 @@ class _WfhState extends State<Wfh> {
                           'type': 'out',
                           'isWfh': true
                         };
+
                         wfhAttendance(dataSave, widget.userId, context)
                             .then((value) {
                           if (value) {

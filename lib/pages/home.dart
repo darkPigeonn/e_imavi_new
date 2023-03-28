@@ -182,18 +182,19 @@ class _HomePageState extends State<HomePage> {
   attendance(type) async {
     await Permission.camera.request();
 
-    EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
+    // EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
 
-    final distance = await getDistance(partner);
+    // final distance = await getDistance(partner);
+    final distance = '12';
 
     bool flagQr = false;
 
     if (type == 'in') {
       if (kIsWeb) {
         EasyLoading.dismiss();
-        final cd = await scanQR2();
+        // final cd = await scanQR2();
       } else {
-        final cekQr = await scanQR();
+        // final cekQr = await scanQR();
       }
     } else if (type == 'out') {
       flagQr = true;

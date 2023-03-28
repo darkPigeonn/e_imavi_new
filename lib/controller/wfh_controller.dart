@@ -23,9 +23,11 @@ Future<dynamic> wfhAttendance(data, userId, context) async {
         'locationNote': data['locationNote'],
         'location': positions,
         'note': data['note'],
-        'isWfh': true
+        'isWfh': true,
+        'images': imageUrl
       };
       final body = jsonEncode(dataSave);
+
       Map<String, String> headers = {
         'Id': '6147f10d33abc530a445fe84',
         'Secret': '88022467-0b5c-4e61-8933-000cd884aaa8',
@@ -41,10 +43,8 @@ Future<dynamic> wfhAttendance(data, userId, context) async {
       } else {
         EasyLoading.showError(responseBody['message']);
       }
-
     });
   } catch (error) {
-
     return ("Gagal upload, terjadi gangguan jaringan");
   }
   return dataReturn;
